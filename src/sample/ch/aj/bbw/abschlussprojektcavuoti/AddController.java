@@ -12,7 +12,7 @@ import javafx.util.converter.NumberStringConverter;
 
 import java.sql.*;
 
-public class ViewController {
+public class AddController {
 
     Model myModel;
 

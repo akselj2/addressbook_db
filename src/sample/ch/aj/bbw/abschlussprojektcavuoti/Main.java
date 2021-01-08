@@ -1,5 +1,6 @@
 package sample.ch.aj.bbw.abschlussprojektcavuoti;
 
+import com.sun.glass.ui.Menu;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -33,8 +34,11 @@ public class Main extends Application {
             FXMLLoader myLoader = new FXMLLoader(getClass().getResource("resources/MainView.fxml"));
             HBox root = myLoader.load();
 
-            ViewController viewController = (ViewController) myLoader.getController();
-            viewController.setModel(myModel);
+            MenuController menuController = (MenuController) myLoader.getController();
+            menuController.setModel(myModel);
+
+            AddController AddController = (AddController) myLoader.getController();
+            AddController.setModel(myModel);
 
             Scene scene = new Scene(root, 400, 400);
             primaryStage.setTitle("AddressBook");

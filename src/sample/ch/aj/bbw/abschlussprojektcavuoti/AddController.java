@@ -1,7 +1,5 @@
 package sample.ch.aj.bbw.abschlussprojektcavuoti;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.Property;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,8 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.util.converter.NumberStringConverter;
-
-import java.sql.*;
 
 public class AddController {
 

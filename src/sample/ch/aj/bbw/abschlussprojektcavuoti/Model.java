@@ -14,7 +14,7 @@ import java.sql.SQLException;
  * Model
  *
  * @author Aksel Jessen
- * @version 07/01/2020
+ * @version 09/01/2020
  */
 
 public class Model {

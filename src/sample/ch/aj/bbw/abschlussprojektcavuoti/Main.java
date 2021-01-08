@@ -47,7 +47,7 @@ public class Main extends Application {
             FXMLLoader myLoader = new FXMLLoader(getClass().getResource("resources/MenuView.fxml"));
             HBox root = myLoader.load();
 
-            Scene scene = new Scene(root, 400, 400);
+            Scene scene = new Scene(root);
             primaryStage.setTitle("AddressBook");
             primaryStage.setScene(scene);
             primaryStage.show();

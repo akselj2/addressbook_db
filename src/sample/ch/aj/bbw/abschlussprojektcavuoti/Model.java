@@ -14,12 +14,13 @@ import java.sql.SQLException;
  * Model
  *
  * @author Aksel Jessen
- * @version 09/01/2020
+ * @version 09/01/2021
  */
 
 public class Model {
 
     //insert new variables and shit here
+
     private StringProperty name = new SimpleStringProperty();
     private StringProperty street = new SimpleStringProperty();
     private IntegerProperty zip = new SimpleIntegerProperty();
@@ -27,6 +28,10 @@ public class Model {
     private StringProperty confirmMessage = new SimpleStringProperty();
 
 
+    /*
+    method gets all variables after having been changed from property to normal datatype
+    then calls the insert method with the params in a try catch
+     */
 
     public void insertFromView(){
 
@@ -41,6 +46,18 @@ public class Model {
             e.printStackTrace();
         }
     }
+
+    /**
+     *
+     * insert method
+     *
+     * bindings sql style.
+     *
+     * @param name      String variable for name in address
+     * @param street    String variable for street in address
+     * @param zip       integer for zip code in address
+     * @param age       integer for age (to be changed) in address
+     */
 
     public void insert(String name, String street, int zip, int age){
 
@@ -59,6 +76,8 @@ public class Model {
         }
     }
 
+    // connects to database with username and password
+
     private Connection connect() {
 
         Connection myConn = null;
@@ -72,6 +91,7 @@ public class Model {
         return myConn;
     }
 
+    // getters and setters
 
     public String getName() {
         return name.get();

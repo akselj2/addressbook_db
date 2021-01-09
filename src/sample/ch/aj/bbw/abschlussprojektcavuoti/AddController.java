@@ -8,12 +8,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
-
 import java.io.IOException;
+
+/**
+ * @author Aksel Jessen
+ * @version 09/01/2021
+ */
 
 public class AddController {
 
@@ -43,6 +46,8 @@ public class AddController {
     @FXML
     Button backButton;
 
+    // binds textfield text properties to the different properties in Model class
+
     public void setModel(Model model){
         myModel = model;
 
@@ -53,6 +58,8 @@ public class AddController {
 
     }
 
+    // sets all fields to blank
+
     public void reset(ActionEvent event){
         textFieldName.setText("");
         textFieldStreet.setText("");
@@ -61,6 +68,8 @@ public class AddController {
         labelMessage.setText("");
     }
 
+    // once button is clicked, method calls insertFromView() from Model class and sets Text for a Label to "Check Db" and makes it Green.
+
     public void confirm(ActionEvent event){
         myModel.insertFromView();
 
@@ -68,10 +77,10 @@ public class AddController {
         labelMessage.setTextFill(Color.GREEN);
     }
 
+    // method changes scene from creation interface to menu
+
     public void backToMenu(ActionEvent event){
         try {
-
-
             FXMLLoader myLoader = new FXMLLoader(getClass().getResource("resources/MenuView.fxml"));
             myLoader.load();
             Parent root = myLoader.getRoot();

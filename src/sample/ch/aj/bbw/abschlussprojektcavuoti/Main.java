@@ -9,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
 import java.io.IOException;
 
@@ -26,13 +25,7 @@ public class Main extends Application {
     Button AddButton;
 
     @FXML
-    Button UpdateButton;
-
-    @FXML
     Button ViewButton;
-
-    @FXML
-    Button DeleteButton;
 
     public static void main(String[] args) {
         launch(args);
@@ -42,7 +35,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
 
         try {
-            Model myModel = new Model();
 
             FXMLLoader myLoader = new FXMLLoader(getClass().getResource("resources/MenuView.fxml"));
             HBox root = myLoader.load();
@@ -55,6 +47,8 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+
+    // method switches scene from menu to creation interface
 
     public void changeSceneAdd(ActionEvent event) {
         try {
@@ -76,15 +70,24 @@ public class Main extends Application {
         }
     }
 
-    public void changeSceneUpdate(ActionEvent event) {
-
-    }
+    // method switches scene from menu to viewing interface
 
     public void changeSceneView(ActionEvent event) {
+        try {
 
-    }
+            Model myModel = new Model();
 
-    public void changeSceneDelete(ActionEvent event) {
+            FXMLLoader myLoader = new FXMLLoader(getClass().getResource("resources/ViewView.fxml"));
+            Parent root = myLoader.load();
 
+            ViewController ViewController = (ViewController) myLoader.getController();
+            ViewController.setModel(myModel);
+
+            Stage stage = (Stage) ViewButton.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }

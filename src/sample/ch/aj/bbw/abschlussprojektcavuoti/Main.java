@@ -86,8 +86,15 @@ public class Main extends Application {
             Stage stage = (Stage) ViewButton.getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
+
         }catch (IOException e){
             e.printStackTrace();
         }
+    }
+
+    public void showItemsInListView(){
+        String sql = "SELECT * FROM addresses";
+
+
     }
 }

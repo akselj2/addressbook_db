@@ -19,7 +19,7 @@ import java.sql.SQLException;
 
 public class Model {
 
-    //insert new variables and shit here
+    //variables for AddController.java
 
     private StringProperty name = new SimpleStringProperty();
     private StringProperty street = new SimpleStringProperty();
@@ -27,6 +27,9 @@ public class Model {
     private IntegerProperty age = new SimpleIntegerProperty();
     private StringProperty confirmMessage = new SimpleStringProperty();
 
+    //variables for ViewController.java
+
+    private IntegerProperty selectedIndex = new SimpleIntegerProperty();
 
     /*
     method gets all variables after having been changed from property to normal datatype
@@ -78,7 +81,7 @@ public class Model {
 
     // connects to database with username and password
 
-    private Connection connect() {
+    public Connection connect() {
 
         Connection myConn = null;
 
@@ -89,6 +92,10 @@ public class Model {
         }
 
         return myConn;
+    }
+
+    public void showItemsInListView(){
+
     }
 
     // getters and setters

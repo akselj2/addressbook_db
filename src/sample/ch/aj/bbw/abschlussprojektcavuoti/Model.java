@@ -1,9 +1,7 @@
 package sample.ch.aj.bbw.abschlussprojektcavuoti;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
+import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -26,6 +24,8 @@ public class Model {
     private IntegerProperty zip = new SimpleIntegerProperty();
     private IntegerProperty age = new SimpleIntegerProperty();
     private StringProperty confirmMessage = new SimpleStringProperty();
+
+    private ObservableList<String> names = new SimpleListProperty<>();
 
     //variables for ViewController.java
 
@@ -77,6 +77,10 @@ public class Model {
         } catch(SQLException e){
             e.printStackTrace();
         }
+    }
+
+    public void showItems(){
+
     }
 
     // connects to database with username and password

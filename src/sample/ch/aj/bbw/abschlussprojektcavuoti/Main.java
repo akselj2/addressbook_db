@@ -10,7 +10,9 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import javax.xml.transform.Result;
 import java.io.IOException;
+import java.sql.*;
 
 /**
  * Main Class
@@ -74,7 +76,6 @@ public class Main extends Application {
 
     public void changeSceneView(ActionEvent event) {
         try {
-
             Model myModel = new Model();
 
             FXMLLoader myLoader = new FXMLLoader(getClass().getResource("resources/ViewView.fxml"));
@@ -87,14 +88,10 @@ public class Main extends Application {
             Scene scene = new Scene(root);
             stage.setScene(scene);
 
+
+
         }catch (IOException e){
             e.printStackTrace();
         }
-    }
-
-    public void showItemsInListView(){
-        String sql = "SELECT * FROM addresses";
-
-
     }
 }

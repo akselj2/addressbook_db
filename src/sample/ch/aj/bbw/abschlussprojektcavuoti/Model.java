@@ -1,9 +1,7 @@
 package sample.ch.aj.bbw.abschlussprojektcavuoti;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
+import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,7 +17,7 @@ import java.sql.SQLException;
 
 public class Model {
 
-    //insert new variables and shit here
+    //variables for AddController.java
 
     private StringProperty name = new SimpleStringProperty();
     private StringProperty street = new SimpleStringProperty();
@@ -27,6 +25,11 @@ public class Model {
     private IntegerProperty age = new SimpleIntegerProperty();
     private StringProperty confirmMessage = new SimpleStringProperty();
 
+    private ObservableList<String> names = new SimpleListProperty<>();
+
+    //variables for ViewController.java
+
+    private IntegerProperty selectedIndex = new SimpleIntegerProperty();
 
     /*
     method gets all variables after having been changed from property to normal datatype
@@ -76,9 +79,13 @@ public class Model {
         }
     }
 
+    public void showItems(){
+
+    }
+
     // connects to database with username and password
 
-    private Connection connect() {
+    public Connection connect() {
 
         Connection myConn = null;
 
@@ -89,6 +96,10 @@ public class Model {
         }
 
         return myConn;
+    }
+
+    public void showItemsInListView(){
+
     }
 
     // getters and setters

@@ -21,9 +21,7 @@ public class Model {
 
     private StringProperty name = new SimpleStringProperty();
     private StringProperty street = new SimpleStringProperty();
-    private IntegerProperty zip = new SimpleIntegerProperty();
-    private IntegerProperty age = new SimpleIntegerProperty();
-    private StringProperty confirmMessage = new SimpleStringProperty();
+    private IntegerProperty plz = new SimpleIntegerProperty();
 
     private ObservableList<String> names = new SimpleListProperty<>();
 
@@ -38,13 +36,12 @@ public class Model {
 
     public void insertFromView(){
 
-        String currentName = getName();
-        String currentStreet = getStreet();
-        int currentZip = getZip();
-        int currentAge = getAge();
+        String name = getName();
+        String street = getStreet();
+        int plz = getPlz();
 
         try {
-            insert(currentName, currentStreet, currentZip, currentAge);
+            insert(name, street, plz);
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -58,20 +55,18 @@ public class Model {
      *
      * @param name      String variable for name in address
      * @param street    String variable for street in address
-     * @param zip       integer for zip code in address
-     * @param age       integer for age (to be changed) in address
+     * @param plz       integer for zip code in address
      */
 
-    public void insert(String name, String street, int zip, int age){
+    public void insert(String name, String street, int plz){
 
-        String sql = "INSERT INTO addresses(name,street,zip,age) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO addresses(name,street,plz) VALUES(?,?,?)";
 
         try (Connection myConn = this.connect();
              PreparedStatement pstmt = myConn.prepareStatement(sql)) {
             pstmt.setString(1, name);
             pstmt.setString(2, street);
-            pstmt.setInt(3, zip);
-            pstmt.setInt(4, age);
+            pstmt.setInt(3, plz);
             pstmt.executeUpdate();
 
         } catch(SQLException e){
@@ -128,39 +123,15 @@ public class Model {
         this.street.set(street);
     }
 
-    public int getZip() {
-        return zip.get();
+    public int getPlz() {
+        return plz.get();
     }
 
-    public IntegerProperty zipProperty() {
-        return zip;
+    public IntegerProperty plzProperty() {
+        return plz;
     }
 
-    public void setZip(int zip) {
-        this.zip.set(zip);
-    }
-
-    public int getAge() {
-        return age.get();
-    }
-
-    public IntegerProperty ageProperty() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age.set(age);
-    }
-
-    public String getConfirmMessage() {
-        return confirmMessage.get();
-    }
-
-    public StringProperty confirmMessageProperty() {
-        return confirmMessage;
-    }
-
-    public void setConfirmMessage(String confirmMessage) {
-        this.confirmMessage.set(confirmMessage);
+    public void setPlz(int plz) {
+        this.plz.set(plz);
     }
 }

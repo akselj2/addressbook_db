@@ -23,12 +23,6 @@ import java.sql.*;
 
 public class Main extends Application {
 
-    @FXML
-    Button AddButton;
-
-    @FXML
-    Button ViewButton;
-
     public static void main(String[] args) {
         launch(args);
     }
@@ -38,59 +32,19 @@ public class Main extends Application {
 
         try {
 
+            Model myModel = new Model();
+
             FXMLLoader myLoader = new FXMLLoader(getClass().getResource("resources/MenuView.fxml"));
             HBox root = myLoader.load();
+
+            Controller controller = (Controller) myLoader.getController();
+            controller.setModel(myModel);
 
             Scene scene = new Scene(root);
             primaryStage.setTitle("AddressBook");
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // method switches scene from menu to creation interface
-
-    public void changeSceneAdd(ActionEvent event) {
-        try {
-
-            Model myModel = new Model();
-
-            FXMLLoader myLoader = new FXMLLoader(getClass().getResource("resources/AddView.fxml"));
-            myLoader.load();
-            Parent root = myLoader.getRoot();
-
-            AddController AddController = (AddController) myLoader.getController();
-            AddController.setModel(myModel);
-
-            Stage stage = (Stage) AddButton.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
-    // method switches scene from menu to viewing interface
-
-    public void changeSceneView(ActionEvent event) {
-        try {
-            Model myModel = new Model();
-
-            FXMLLoader myLoader = new FXMLLoader(getClass().getResource("resources/ViewView.fxml"));
-            Parent root = myLoader.load();
-
-            ViewController ViewController = (ViewController) myLoader.getController();
-            ViewController.setModel(myModel);
-
-            Stage stage = (Stage) ViewButton.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-
-
-
-        }catch (IOException e){
             e.printStackTrace();
         }
     }

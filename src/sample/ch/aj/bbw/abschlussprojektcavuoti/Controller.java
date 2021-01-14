@@ -1,33 +1,37 @@
 package sample.ch.aj.bbw.abschlussprojektcavuoti;
 
-import com.sun.glass.ui.EventLoop;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.converter.NumberStringConverter;
 
 import java.io.IOException;
 import java.sql.*;
 
-/**
- * @author Aksel Jessen
- * @version 09/01/2021
- */
-
-public class ViewController {
-
+public class Controller {
     Model myModel;
 
     @FXML
-    Button editButton;
+    Label labelMessage;
 
     @FXML
-    Button deleteButton;
+    TextField textFieldName;
+
+    @FXML
+    TextField textFieldStreet;
+
+    @FXML
+    TextField textFieldPlz;
 
     @FXML
     Button backButton;
@@ -38,38 +42,48 @@ public class ViewController {
     @FXML
     ListView<String> databaseListView = new ListView<>();
 
+    // binds textfield text properties to the different properties in Model class
+
     public void setModel(Model model) {
         myModel = model;
+
+        textFieldName.textProperty().bindBidirectional(model.nameProperty());
+        textFieldStreet.textProperty().bindBidirectional(model.streetProperty());
+        textFieldPlz.textProperty().bindBidirectional(model.plzProperty(), new NumberStringConverter());
+
+        showItems();
+
+    }
+
+    // sets all fields to blank
+
+    public void clear(ActionEvent event) {
+        textFieldName.setText("");
+        textFieldStreet.setText("");
+        textFieldPlz.setText("");
+        labelMessage.setText("");
+    }
+
+    // once button is clicked, method calls insertFromView() from Model class and sets Text for a Label to "Check Db" and makes it Green.
+
+    public void add(ActionEvent event) {
+        myModel.insertFromView();
 
         showItems();
     }
 
-    public ViewController() {
-    }
-//method retrieves .fxml file, loads it, changes scenes and sets the scene. same method as seen in AddController.fxml
-
-    public void backToMenu() {
-        try {
-            FXMLLoader myLoader = new FXMLLoader(getClass().getResource("resources/MenuView.fxml"));
-            myLoader.load();
-            Parent root = myLoader.getRoot();
-
-            Stage stage = (Stage) backButton.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void edit() {
+        delete(databaseListView.getSelectionModel().getSelectedItem());
+
     }
 
     public void delete() {
+        delete(databaseListView.getSelectionModel().getSelectedItem());
+    }
 
-        final String selectedItem = databaseListView.getSelectionModel().getSelectedItem();
+    public void delete(String name) {
 
-        String sql = "DELETE FROM addresses WHERE name='" + selectedItem + "'";
+        String sql = "DELETE FROM addresses WHERE name='" + name + "'";
 
         Connection myConn = connect();
 
@@ -77,13 +91,13 @@ public class ViewController {
             Statement stmt = myConn.createStatement();
 
             stmt.executeQuery(sql);
-            names.remove(selectedItem);
-        } catch (SQLException e){
+            names.remove(name);
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void showItems(){
+    public void showItems() {
         String sql = "SELECT name FROM addresses";
 
         Connection myConn = connect();
@@ -102,7 +116,7 @@ public class ViewController {
         databaseListView.setItems(names);
     }
 
-    public Connection connect(){
+    public Connection connect() {
         Connection myConn = null;
 
         try {

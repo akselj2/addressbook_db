@@ -1,5 +1,6 @@
 package sample.ch.aj.bbw.abschlussprojektcavuoti;
 
+import com.sun.glass.ui.EventLoop;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -62,23 +63,30 @@ public class ViewController {
     }
 
     public void edit() {
-        databaseListView.setItems(names);
     }
 
     public void delete() {
-        // somehow delete selected address with id in listview
+
+        final String selectedItem = databaseListView.getSelectionModel().getSelectedItem();
+
+        String sql = "DELETE FROM addresses WHERE name='" + selectedItem + "'";
+
+        Connection myConn = connect();
+
+        try {
+            Statement stmt = myConn.createStatement();
+
+            stmt.executeQuery(sql);
+            names.remove(selectedItem);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
     public void showItems(){
         String sql = "SELECT name FROM addresses";
 
-        Connection myConn = null;
-
-        try {
-            myConn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/addressbook?user=root&password=aksel");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Connection myConn = connect();
 
         try {
             Statement stmt = myConn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -87,7 +95,6 @@ public class ViewController {
             while (rs.next()) {
                 String name = rs.getString("name");
                 names.add(name);
-                System.out.println(name);
             }
         } catch (SQLException e) {
             e.getMessage();
@@ -95,26 +102,15 @@ public class ViewController {
         databaseListView.setItems(names);
     }
 
-    /*public void showItems() {
-
-        databaseListView.setItems(addresses);
-
-        String sql = "SELECT id, name FROM addresses";
-
-        Statement stmt;
-        ResultSet rs;
+    public Connection connect(){
+        Connection myConn = null;
 
         try {
-            stmt = myModel.connect().createStatement();
-            rs = stmt.executeQuery(sql);
-
-            while (rs.next()) {
-                addresses.add(rs.getAddress(1));
-            }
-
-        } catch(SQLException sqle){
-            sqle.printStackTrace();
+            myConn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/addressbook?user=root&password=aksel");
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
-    }*/
+        return myConn;
+    }
 }
